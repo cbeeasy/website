@@ -20,6 +20,8 @@ def favorite(request, album_id):
             'error_message': "Attention vous n'avez pas choisi de chanson préférée !",
         })
     else:
-        selected_song.is_favorite = True
+        selected_song.is_favorite = not(selected_song.is_favorite)
         selected_song.save()
-        return render(request, 'music/detail.html', {'album': album})
+        #return render(request, 'music/detail.html', {'album': album})
+        all_albums = Album.objects.all()
+        return render(request, 'music/index.html', {'all_albums': all_albums})

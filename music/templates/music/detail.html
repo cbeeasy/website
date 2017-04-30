@@ -4,7 +4,7 @@
 <h3>{{ album.artist }}</h3>
 
 {%  if error_message %}
-    <p col><strong><font color="#8b0000">{{  error_message }}</font></strong></p>
+    <p><strong>{{  error_message }}</strong></p>
 {% endif %}
 
 
@@ -20,6 +20,6 @@
         </label><br>
     {% endfor %}<br>
     {% if album.song_set.all %}
-        <input type="submit" value="Chanson préférée">
+        <input type="submit" value="Marquez ou désélectionnez votre (ou vos) chanson(s) préférée(s).">
     {% endif %}
 </form>
