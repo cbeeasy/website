@@ -6,8 +6,12 @@ app_name = 'music'
 urlpatterns = [
     url(r'^$',views.IndexView.as_view(), name='index'),
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name = 'detail'),
-    #pas de pk puisque add...
+    #On a défini des views generic url demande des fonctions donc on utilise
+    #as_view pour transformer la class en view exploitable par url
+    #rq pk pour récupérer la clé primaire...
+
     url(r'album/add/$', views.AlbumCreate.as_view(), name='album-add'),
+    # pas de pk puisque add...
 
 ]
 

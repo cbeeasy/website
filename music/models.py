@@ -11,6 +11,8 @@ class Album(models.Model):
 
     def get_absolute_url(self):
         return reverse('music:detail', kwargs={'pk': self.pk})
+    # Lorsque l'on va créer un nouvel album on va pouvoir récupérer la pk
+    # ainsi que l'url (avec ce pk en argument pour pointer vers la page details...
 
     def __str__(self):
         return self.album_title + ' - ' + self.artist

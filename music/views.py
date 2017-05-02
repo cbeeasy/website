@@ -9,6 +9,8 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Album.objects.all()
+        #return an object_list for album in object_list...
+        #context_object_name = 'all_albums' -> all_albums=object_list...
 
 class DetailView(generic.DetailView):
     model= Album
@@ -17,6 +19,8 @@ class DetailView(generic.DetailView):
 class AlbumCreate(CreateView):
     model = Album
     fields = ['artist', 'album_title','genre','album_logo']
+    #Rq On n'a pas besoin de lui donner le nom du template Django
+    #va le chercher automatiquement (nom du model en minuscule _form.html dans template/music...)
 
 
 #******************************************************************************************
