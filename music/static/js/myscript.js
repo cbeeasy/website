@@ -1,6 +1,8 @@
 function confirmAlbumDelete(varList)
 {
+    alert(varList);
     var elt= varList.split(',');
+    alert(elt[0]);
     $(".modal-body #hiddenValue").val(elt[0]);
     $(".modal-body #img").attr("src",elt[1]);
     $(".modal-body #albumName").text(elt[2]);

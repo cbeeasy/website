@@ -21,7 +21,7 @@
                                     {%  csrf_token %}
                                     <input type="hidden" name="album_id" value="{{ album.album_title}}"/>
 
-                                    <button type="button" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" onClick="confirmAlbumDelete('{{ album.id }},{{ album.album_logo }},{{ album.album_title }},{{ album.artist }},{{ album.genre }}');"  class="btn btn-default btn-sm" >
+                                    <button type="button" name="btn" value="Submit" id="submitBtn-{{forloop.counter}}" data-toggle="modal" data-target="#confirm-submit" onClick="confirmAlbumDelete('{{ album.id }},{{ album.album_logo }},{{ album.album_title }},{{ album.artist }},{{ album.genre }}');"  class="btn btn-default btn-sm" >
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </form>
