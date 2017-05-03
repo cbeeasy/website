@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Viberr{% endblock %}</title>
@@ -9,9 +9,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/myscript.js' %}" ></script>
 
 </head>
+
 <body>
+    {% load static %}
     <nav class="navbar navbar-inverse">
 
     <div class="container-fluid">

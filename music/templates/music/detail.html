@@ -8,13 +8,34 @@
         <h4>{{ album.artist }}</h4>
         <h4>{{ album.genre}}</h4>
 
-        {% for song in album.song_set.all %}
-            {{  song.song_title }}
-            {%  if song.is_favorite %}
-                <img src="http://i.imgur.com/b9b13Rd.png" />
+        {%  if error_message %}
+            <div class="control-group error">
+                <span class="text-danger small">
+                    {{ error_message }}
+                </span>
+            </div>
+        {% endif %}
+
+        <form action="{% url 'music:favorite' album.id %}" method="post">
+            {%  csrf_token %}
+            {% for song in album.song_set.all %}
+                <div class="radio">
+                  <label><input type="radio" id="song" name="song" value="{{ song.id }}">
+                    {{  song.song_title }}
+                    {%  if song.is_favorite %}
+                        <span class="glyphicon glyphicon-star" style="color:orange"></span>
+                    {% endif %}
+                    </label>
+                </div>
+            {% endfor %}<br>
+            {% if album.song_set.all %}
+                <button type="submit" value="Favorite" class="btn btn-primary btn-sm">
+                    Favorite
+                </button>
             {% endif %}
-            <br>
-        {% endfor %}
+            <a href="{% url 'music:index' %}" class="btn btn-primary btn-sm">Retour aux albums</a>
+        </form>
+
     </div>
 
 {% endblock %}
