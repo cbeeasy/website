@@ -5,7 +5,7 @@
     cad fields = ['artist', 'album_title','genre','album_logo'] -->
 
 {%  extends 'music/base.html' %}
-{%  block title %}Add a new Album{%  endblock %}
+{%  block title %}{{ page_title }}{%  endblock %}
 {%  block albums_active %}active{%  endblock %}
 
 {% block body %}

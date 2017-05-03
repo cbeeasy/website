@@ -1,6 +1,7 @@
 body{
-    background: white url("images/background.jpg");
+    background: #404040;
 }
+
 
 .navbar{
     border-radius: 0;
@@ -8,4 +9,8 @@ body{
 
 .navbar-brand{
     font-family: 'Satisfy', cursive;
+}
+
+.container{
+    border-radius: 5px;
 }

@@ -1,5 +1,6 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 from .models import Album
 
 
@@ -19,8 +20,29 @@ class DetailView(generic.DetailView):
 class AlbumCreate(CreateView):
     model = Album
     fields = ['artist', 'album_title','genre','album_logo']
+
+    def get_context_data(self, **kwargs):
+        context_data = super(AlbumCreate, self).get_context_data(**kwargs)
+        context_data['page_title'] = 'Add a new album'
+        return context_data
+
     #Rq On n'a pas besoin de lui donner le nom du template Django
     #va le chercher automatiquement (nom du model en minuscule _form.html dans template/music...)
+
+class AlbumUpdate(UpdateView):
+    model = Album
+    fields = ['artist', 'album_title','genre','album_logo']
+
+    def get_context_data(self, **kwargs):
+        context_data = super(AlbumUpdate, self).get_context_data(**kwargs)
+        context_data['page_title'] = 'Edit an album'
+        return context_data
+
+class AlbumDelete(DeleteView):
+    model=Album
+    #where to go after delete ? -> index
+    success_url = reverse_lazy('music:index')
+
 
 
 #******************************************************************************************
