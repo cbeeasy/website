@@ -1,10 +1,15 @@
 {%  extends 'music/base.html' %}
-{% block title %}Album details{%  endblock %}
+{%  block title %}{{ page_title }}{%  endblock %}
 
 {% block body %}
     <div class="container col-md-offset-1 col-md-1" style=" background-color: white; width: 330px; padding-bottom: 20px;">
         <img src="{{ album.album_logo }}"  height="300" width="300" border="0" style="padding-top: 15px;" >
-        <h3>{{ album.album_title }}</h3>
+
+        <div>
+            <div class="glyphicon glyphicon-star" {% if album.is_favorite %} style="float: left;color:orange"{% else %}style="float: left;color:black"{% endif %}>&nbsp;</div>
+            <div><h3 style="color: black;">{{ album.album_title }}</h3></div>
+        </div>
+
         <h4>{{ album.artist }}</h4>
         <h4>{{ album.genre}}</h4>
 
@@ -16,24 +21,37 @@
             </div>
         {% endif %}
 
-        <form action="{% url 'music:favorite' album.id %}" method="post">
+        {%  if not delete_album %}
+            <form action="{% url 'music:song-favorite' album.id %}" method="post">
+        {% else %}
+            <form action="{% url 'music:album-delete' album.id %}" method="post">
+        {% endif %}
             {%  csrf_token %}
             {% for song in album.song_set.all %}
                 <div class="radio">
                   <label><input type="radio" id="song" name="song" value="{{ song.id }}">
                     {{  song.song_title }}
                     {%  if song.is_favorite %}
-                        <span class="glyphicon glyphicon-star" style="color:orange"></span>
+                        <span class="glyphicon glyphicon-star" style="color:#50b6ff"></span>
                     {% endif %}
                     </label>
                 </div>
             {% endfor %}<br>
-            {% if album.song_set.all %}
+            {% if album.song_set.all and not delete_album %}
                 <button type="submit" value="Favorite" class="btn btn-primary btn-sm">
-                    Favorite
+                    Set Favorite songs
                 </button>
             {% endif %}
-            <a href="{% url 'music:index' %}" class="btn btn-primary btn-sm">Retour aux albums</a>
+            {%  if delete_album %}
+                <button type="submit" value="Delete" class="btn btn-primary btn-sm">
+                    Delete
+                </button>
+            {%  endif %}
+            {%  if delete_album or album.song_set.all %}
+                <a href="{% url 'music:index' %}" class="btn btn-default btn-sm">Retour aux albums</a>
+            {% else %}
+                <a href="{% url 'music:index' %}" class="btn btn-primary btn-sm">Retour aux albums</a>
+            {%  endif %}
         </form>
 
     </div>
