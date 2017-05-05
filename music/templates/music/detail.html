@@ -6,10 +6,11 @@
         <img src="{{ album.album_logo }}"  height="300" width="300" border="0" style="padding-top: 15px;" >
 
         <div>
-            <div class="glyphicon glyphicon-star" {% if album.is_favorite %} style="float: left;color:orange"{% else %}style="float: left;color:black"{% endif %}>&nbsp;</div>
+            {% if album.is_favorite %}
+                <div class="glyphicon glyphicon-star" style="float: left;color:orange;vertical-align: middle; margin-top: 5px">&nbsp;</div>
+            {%  endif %}
             <div><h3 style="color: black;">{{ album.album_title }}</h3></div>
         </div>
-
         <h4>{{ album.artist }}</h4>
         <h4>{{ album.genre}}</h4>
 
