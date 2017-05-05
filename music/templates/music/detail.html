@@ -2,58 +2,61 @@
 {%  block title %}{{ page_title }}{%  endblock %}
 
 {% block body %}
-    <div class="container col-md-offset-1 col-md-1" style=" background-color: white; width: 330px; padding-bottom: 20px;">
-        <img src="{{ album.album_logo }}"  height="300" width="300" border="0" style="padding-top: 15px;" >
-
-        <div>
-            {% if album.is_favorite %}
-                <div class="glyphicon glyphicon-star" style="float: left;color:orange;vertical-align: middle; margin-top: 5px">&nbsp;</div>
-            {%  endif %}
-            <div><h3 style="color: black;">{{ album.album_title }}</h3></div>
-        </div>
-        <h4>{{ album.artist }}</h4>
-        <h4>{{ album.genre}}</h4>
-
-        {%  if error_message %}
-            <div class="control-group error">
-                <span class="text-danger small">
-                    {{ error_message }}
-                </span>
+    <div class="col-sm-4 col-lg-3" style="padding-left: 20px; padding-right: 20px;display: flex; align-items: center">
+        <div class="thumbnail" style="background-color: white;">
+            <a href="{% url 'music:detail' album.id %}"><img src="{{ album.album_logo }}" class="img-responsive" style="width: 300px; height: 300px; float: left;" /></a>
+            <div>
+                {% if album.is_favorite %}
+                    <div class="glyphicon glyphicon-star" style="float: left;color:orange;vertical-align: middle; margin-top: 5px">&nbsp;</div>
+                {%  endif %}
+                <div><h3 style="color: black;">{{ album.album_title }}</h3></div>
             </div>
-        {% endif %}
-
-        {%  if not delete_album %}
-            <form action="{% url 'music:song-favorite' album.id %}" method="post">
-        {% else %}
-            <form action="{% url 'music:album-delete' album.id %}" method="post">
-        {% endif %}
-            {%  csrf_token %}
-            {% for song in album.song_set.all %}
-                <div class="radio">
-                  <label><input type="radio" id="song" name="song" value="{{ song.id }}">
-                    {{  song.song_title }}
-                    {%  if song.is_favorite %}
-                        <span class="glyphicon glyphicon-star" style="color:#50b6ff"></span>
-                    {% endif %}
-                    </label>
+            <div>
+                <h4 style="color: black;">{{ album.artist }}</h4>
+            </div>
+            <div>
+                <h4 style="color: black;">{{ album.genre }}</h4>
+            </div>
+            {%  if error_message %}
+                <div class="control-group error">
+                    <span class="text-danger small">
+                        {{ error_message }}
+                    </span>
                 </div>
-            {% endfor %}<br>
-            {% if album.song_set.all and not delete_album %}
-                <button type="submit" value="Favorite" class="btn btn-primary btn-sm">
-                    Set Favorite songs
-                </button>
             {% endif %}
-            {%  if delete_album %}
-                <button type="submit" value="Delete" class="btn btn-primary btn-sm">
-                    Delete
-                </button>
-            {%  endif %}
-            {%  if delete_album or album.song_set.all %}
-                <a href="{% url 'music:index' %}" class="btn btn-default btn-sm">Retour aux albums</a>
+
+            {%  if not delete_album %}
+                <form action="{% url 'music:song-favorite' album.id %}" method="post">
             {% else %}
-                <a href="{% url 'music:index' %}" class="btn btn-primary btn-sm">Retour aux albums</a>
-            {%  endif %}
-        </form>
+                <form action="{% url 'music:album-delete' album.id %}" method="post">
+            {% endif %}
+                {%  csrf_token %}
+                {% for song in album.song_set.all %}
+                    <div class="radio">
+                      <label><input type="radio" id="song" name="song" value="{{ song.id }}">
+                        {{  song.song_title }}
+                        {%  if song.is_favorite %}
+                            <span class="glyphicon glyphicon-star" style="color:#50b6ff"></span>
+                        {% endif %}
+                        </label>
+                    </div>
+                {% endfor %}<br>
+                {% if album.song_set.all and not delete_album %}
+                    <button type="submit" value="Favorite" class="btn btn-primary btn-sm">
+                        Set Favorite songs
+                    </button>
+                {% endif %}
+                {%  if delete_album %}
+                    <button type="submit" value="Delete" class="btn btn-primary btn-sm">
+                        Delete
+                    </button>
+                {%  endif %}
+                {%  if delete_album or album.song_set.all %}
+                    <a href="{% url 'music:index' %}" class="btn btn-default btn-sm">Retour aux albums</a>
+                {% else %}
+                    <a href="{% url 'music:index' %}" class="btn btn-primary btn-sm">Retour aux albums</a>
+                {%  endif %}
+            </form>
 
     </div>
 
