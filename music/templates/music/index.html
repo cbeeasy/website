@@ -7,21 +7,23 @@
             <div class="row">
                 {% for album in all_albums %}
 
-                    <div class="col-sm-4 col-lg-3" style="padding-left: 20px; padding-right: 20px;display: flex; align-items: center">
+                    <div class="col-sm-4 col-lg-3" style="padding-left: 20px; padding-right: 20px;display: flex; align-items: center;">
                         <div class="thumbnail" style="background-color: white;">
                             <a href="{% url 'music:detail' album.id %}">
-                                <img src="{{ album.album_logo.url }}" class="img-responsive" style="width: 300px; height: 300px; float: left;" />
+                                <img src="{{ album.album_logo.url }}" class="img-responsive" style="width: 300px; height: 300px; float: left; padding-bottom: 10px;" />
                             </a>
                             <div>
                                 {% if album.is_favorite %}
                                     <div class="glyphicon glyphicon-star" style="float: left;color:orange;vertical-align: middle; margin-top: 5px">&nbsp;</div>
                                 {%  endif %}
-                                <div><h3 style="color: black;">{{ album.album_title }}</h3></div>
+                                <div><h3 style="font-family: 'Satisfy', cursive; color: #50b6ff;"">{{ album.album_title }}</h3></div>
                             </div>
                             <div>
                                 <h4 style="color: black;">{{ album.artist }}</h4>
                             </div>
-
+                            <div>
+                                <h4 style="color: black;">{{ album.genre }}</h4>
+                            </div>
 
                             <!-- Details -->
                             <a href="{% url 'music:detail' album.id %}" class="btn btn-primary btn-sm">Songs</a>

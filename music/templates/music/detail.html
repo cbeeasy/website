@@ -6,13 +6,13 @@
         <div class="thumbnail" style="background-color: white;">
             <h2 style="text-align: center; font-family: 'Satisfy', cursive; color:#50b6ff;">{{ body_title }}</h2>
             <a href="{% url 'music:detail' album.id %}">
-                <img src="{{ album.album_logo.url }}" class="img-responsive" style="width: 300px; height: 300px; float: left;" />
+                <img src="{{ album.album_logo.url }}" class="img-responsive" style="width: 300px; height: 300px; float: left; padding-bottom: 10px;" />
             </a>
             <div>
                 {% if album.is_favorite %}
                     <div class="glyphicon glyphicon-star" style="float: left;color:orange;vertical-align: middle; margin-top: 5px">&nbsp;</div>
                 {%  endif %}
-                <div><h3 style="color: black;">{{ album.album_title }}</h3></div>
+                <div><h3 style="font-family: 'Satisfy', cursive; color: #50b6ff;">{{ album.album_title }}</h3></div>
             </div>
             <div>
                 <h4 style="color: black;">{{ album.artist }}</h4>
