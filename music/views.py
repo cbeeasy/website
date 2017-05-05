@@ -1,8 +1,12 @@
 from django.views import generic
+from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404,redirect
+from django.contrib.auth import authenticate, login
 from .models import Album, Song
+from .forms import UserForm
+
 
 def favorite(request, album_id):
     album = get_object_or_404(Album, pk = album_id)
@@ -83,5 +87,44 @@ class AlbumDelete(DeleteView):
     model=Album
     #where to go after delete ? -> index
     success_url = reverse_lazy('music:index')
+
+class UserFormView(View):
+    form_class = UserForm
+    template_name = 'music/registration_form.html'
+
+    #display blank form
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name,{'form': form})
+
+    # process form data
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        # django builtin a validé le formulaire
+        if form.is_valid():
+            #avt de sauvegarder les infos on définit d'autres validations
+            user = form.save(commit=False) # on sauvegarde en mem pas ds la database
+
+            #clean (normalized) data
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user.set_password(password) # Attention le password entré doit etre hashé...
+            user.save() # on sauvegarde ds la base de donnée
+
+            # returns User objects if credentials are correct
+            user = authenticate(username=username, password=password) #check if ok
+
+            if user is not None:
+                if user.is_active:
+                    login(request,user)# log ok request.user.username etc...
+                    return redirect('music:index')
+
+        #a ce point si on n'a pas été redirigé c'est qu'il y a un pb sur le loginform
+        #on redirige à nouveau l'utilisateur vers le login form
+        return render(request, self.template_name, {'form': form})
+
+
+
 
 
