@@ -9,7 +9,9 @@
 
                     <div class="col-sm-4 col-lg-3" style="padding-left: 20px; padding-right: 20px;display: flex; align-items: center">
                         <div class="thumbnail" style="background-color: white;">
-                            <a href="{% url 'music:detail' album.id %}"><img src="{{ album.album_logo }}" class="img-responsive" style="width: 300px; height: 300px; float: left;" /></a>
+                            <a href="{% url 'music:detail' album.id %}">
+                                <img src="{{ album.album_logo.url }}" class="img-responsive" style="width: 300px; height: 300px; float: left;" />
+                            </a>
                             <div>
                                 {% if album.is_favorite %}
                                     <div class="glyphicon glyphicon-star" style="float: left;color:orange;vertical-align: middle; margin-top: 5px">&nbsp;</div>
