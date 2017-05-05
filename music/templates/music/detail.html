@@ -4,6 +4,7 @@
 {% block body %}
     <div class="col-sm-4 col-lg-3" style="padding-left: 20px; padding-right: 20px;display: flex; align-items: center">
         <div class="thumbnail" style="background-color: white;">
+            <h2 style="text-align: center; font-family: 'Satisfy', cursive; color:#50b6ff;">{{ body_title }}</h2>
             <a href="{% url 'music:detail' album.id %}">
                 <img src="{{ album.album_logo.url }}" class="img-responsive" style="width: 300px; height: 300px; float: left;" />
             </a>

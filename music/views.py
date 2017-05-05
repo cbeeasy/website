@@ -15,19 +15,22 @@ def favorite(request, album_id):
     except (KeyError, Song.DoesNotExist):
         return render(request, 'music/detail.html', {
             'album' : album,
-            'page_title' : 'Album details',
+            'page_title' : 'Songs',
+            'body_title': 'Songs',
             'error_message': "Vous n'avez pas séléctionné une chanson !",
         })
     else:
         selected_song.is_favorite = not(selected_song.is_favorite)
         selected_song.save()
-        return render(request, 'music/detail.html', {'album': album, 'page_title': 'Album details'})
+        return render(request, 'music/detail.html', {'album': album, 'page_title': 'Songs',
+                                                     'body_title': 'Songs'})
 
 def confirmDeleteAlbum(request, album_id):
     album = get_object_or_404(Album, pk = album_id)
     return render(request, 'music/detail.html', {
         'album' : album,
-        'page_title' : 'Delete an Album',
+        'page_title' : 'Songs',
+        'body_title': 'Songs',
         'delete_album' : True,
     })
 
@@ -59,7 +62,8 @@ class DetailView(generic.DetailView):
 
         context_data = super(DetailView, self).get_context_data(**kwargs)
         context_data['error_message'] = error_message
-        context_data['page_title'] = 'Album details'
+        context_data['page_title'] = 'Songs'
+        context_data['body_title'] = 'Songs'
         return context_data
 
 class AlbumCreate(CreateView):
@@ -68,7 +72,9 @@ class AlbumCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context_data = super(AlbumCreate, self).get_context_data(**kwargs)
-        context_data['page_title'] = 'Add a new album'
+        context_data['page_title'] = 'Songs'
+        context_data['body_title'] = 'Songs'
+
         return context_data
 
     #Rq On n'a pas besoin de lui donner le nom du template Django
@@ -80,7 +86,8 @@ class AlbumUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context_data = super(AlbumUpdate, self).get_context_data(**kwargs)
-        context_data['page_title'] = 'Edit an album'
+        context_data['page_title'] = 'Songs'
+        context_data['body_title'] = 'Songs'
         return context_data
 
 class AlbumDelete(DeleteView):
